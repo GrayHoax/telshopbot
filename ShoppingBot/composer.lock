@@ -1,0 +1,120 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "7fc695cc0883848bd99e1c2ab7ac9c14",
+    "packages": [
+        {
+            "name": "catfan/medoo",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/catfan/Medoo.git",
+                "reference": "8ee8ae1c4df0fee3822a01333eab88893e548fcc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/catfan/Medoo/zipball/8ee8ae1c4df0fee3822a01333eab88893e548fcc",
+                "reference": "8ee8ae1c4df0fee3822a01333eab88893e548fcc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": ">=5.4"
+            },
+            "suggest": {
+                "ext-pdo_dblib": "For MSSQL or Sybase database on Linux/UNIX platform",
+                "ext-pdo_mysql": "For MySQL or MariaDB database",
+                "ext-pdo_oci": "For Oracle database",
+                "ext-pdo_oci8": "For Oracle version 8 database",
+                "ext-pdo_pqsql": "For PostgreSQL database",
+                "ext-pdo_sqlite": "For SQLite database",
+                "ext-pdo_sqlsrv": "For MSSQL database on Windows platform"
+            },
+            "type": "framework",
+            "autoload": {
+                "psr-4": {
+                    "Medoo\\": "/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Angel Lai",
+                    "email": "angel@catfan.me"
+                }
+            ],
+            "description": "The lightest PHP database framework to accelerate development",
+            "homepage": "https://medoo.in",
+            "keywords": [
+                "database",
+                "lightweight",
+                "mariadb",
+                "mssql",
+                "mysql",
+                "oracle",
+                "php framework",
+                "postgresql",
+                "sql",
+                "sqlite"
+            ],
+            "time": "2017-06-24T14:43:07+00:00"
+        },
+        {
+            "name": "radyakaze/phptelebot",
+            "version": "v1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/radyakaze/phptelebot.git",
+                "reference": "37b5553af02bc04a4fdf9eefec2e61e52e9e5a1d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/radyakaze/phptelebot/zipball/37b5553af02bc04a4fdf9eefec2e61e52e9e5a1d",
+                "reference": "37b5553af02bc04a4fdf9eefec2e61e52e9e5a1d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.4"
+            },
+            "type": "framework",
+            "autoload": {
+                "files": [
+                    "src/PHPTelebot.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Radya",
+                    "email": "radya@gmx.com"
+                }
+            ],
+            "description": "Telegram bot framework written in PHP.",
+            "keywords": [
+                "bot",
+                "telegram"
+            ],
+            "time": "2016-11-29T03:50:53+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "catfan/medoo": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

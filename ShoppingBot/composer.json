@@ -1,0 +1,14 @@
+{
+    "name": "vendor/shopping-bot",
+    "description": "Описание проекта ShoppingBot.",
+    "authors": [
+        {
+            "name": "grayhoax",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "radyakaze/phptelebot": "v1.3",
+        "catfan/medoo": "dev-master"
+    }
+}
