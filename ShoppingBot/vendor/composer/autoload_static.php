@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdf3995998e49efc78021ac9ab5d97637
+class ComposerStaticInit6810fa58fd107a558e702208bb0dfdc9
 {
     public static $files = array (
         '60485befb91f39a927e5665f589d340e' => __DIR__ . '/..' . '/radyakaze/phptelebot/src/PHPTelebot.php',
@@ -27,8 +27,8 @@ class ComposerStaticInitdf3995998e49efc78021ac9ab5d97637
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdf3995998e49efc78021ac9ab5d97637::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdf3995998e49efc78021ac9ab5d97637::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6810fa58fd107a558e702208bb0dfdc9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6810fa58fd107a558e702208bb0dfdc9::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

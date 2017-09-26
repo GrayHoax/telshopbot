@@ -9,6 +9,6 @@
     ],
     "require": {
         "radyakaze/phptelebot": "v1.3",
-        "catfan/medoo": "dev-master"
+        "catfan/medoo": "v1.4.5"
     }
 }
