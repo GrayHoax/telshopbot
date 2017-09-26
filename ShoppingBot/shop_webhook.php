@@ -12,7 +12,7 @@
 	
     use Medoo\Medoo;
 
-    $bot = new PHPTelebot('386254582:AAEDCiN0l6Ktj85fHocK8-6uMlFMrz0nuFM', 'bazovskaya_shop_bot');
+    $bot = new PHPTelebot($BOT_API_KEY, $BOT_LOGIN);
     $database = new Medoo([
         'database_type' => 'mysql',
         'database_name' => $db_base,
