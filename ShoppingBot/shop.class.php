@@ -15,6 +15,7 @@ class Shop {
 
     public $db;
     public $debug;
+    public $debug_file;
     
     public $current_message;
     
@@ -28,14 +29,12 @@ class Shop {
         'USERCART' => 3600,
         'STRING' => 3600 * 24
     ];
-    
+    /*
     function __construct() {
         $this->Logging('Class Cunstructor');
     }
-    
-    function Shop($useMemcached = false, $MemcachedLink = null) {
-        $this->Logging('Defined UserID: ' . $user_id);
-        
+    */
+    function Shop($useMemcached = false, $MemcachedLink = null) {        
         if ($this->useMemcached) {
             $this->Logging('[!] Using Memcached');
             $this->useMemcached = $useMemcached;
@@ -44,7 +43,7 @@ class Shop {
     }
     
     function SetUserID($user_id) {
-        
+        $this->Logging('Defined UserID: ' . $user_id);
         $this->user_id = $user_id;
     }
     
@@ -126,6 +125,16 @@ class Shop {
         return $return;
     }
     
+    function MessageWorker($json_result, $send_message = false) {
+        $data = json_decode($json_result);
+        if ($data->ok) {
+            $this->Logging('Message OK: ' . $data->result->message_id, 'INFO');
+            if ($send_message) $this->db->insert('bot_oldmessages', ['chat_id' => $data->result->chat->id, 'message_id' => $data->result->message_id]);
+        } else {
+            $this->Logging('Message ERROR: ' . $data->description, 'ERROR');
+        }
+    }
+    
     /*
      * Функция для определения параметров продуква в корзине пользователя
      * Принимает идентификатор товара в БД и работает с ним
@@ -156,19 +165,14 @@ class Shop {
      */
     
     public function hasUser() {
-        $users = $this->GetData('USER');
+        $users = $this->GetData('USER', $this->user_id);
         $return = false;
-        foreach($users as $user) {
-            if ($user['id'] == $this->user_id) {
-                $return = $user;
-                break;
-            }
-        }
+        if ($users[0]) $return = $users[0];
         return $return;
     }
     
     public function CreateUser($chat_id, $username, $firstname, $lastname) {
-        $this->db->insert('bot_profiles', ['chat_id' => $chat_id, 'username' => $username, 'firstname' => $firstname, 'lastname' => $lastname]);
+        $this->db->insert('bot_profiles', ['chat_id' => $chat_id, 'username' => $username, 'first_name' => $firstname, 'last_name' => $lastname]);
         $this->LoadData2Memcached('USERS');
         return $this->db->id();
     }
@@ -288,10 +292,12 @@ class Shop {
      * Функция для логирования
      */
     private function Logging($text, $severity = 'INFO') {
-        $this->debug .= date("d.m.Y H:i:s") . ' - [' . $severity . '] - UID: ' . $this->user_id . ' - ' . $text . "\n";
+        //$this->debug .= date("d.m.Y H:i:s") . ' - [' . $severity . '] - UID: ' . $this->user_id . ' - ' . $text . "\n";
+        file_put_contents($this->debug_file, date("d.m.Y H:i:s") . ' - [' . $severity . '] - UID: ' . $this->user_id . ' - ' . $text . "\n", FILE_APPEND);
     }
     
     function __destruct() {
         $this->Logging('Class DEstructor');
+        $this->Logging('DATABASE TRACE: ' . print_r($this->db->log(), true));
     }
 }
