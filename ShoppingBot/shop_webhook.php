@@ -25,12 +25,14 @@
     
     $memcacheD = new Memcached;
     $memcacheD->addServer($mcD_host, $mcD_port);
+    $memcacheD->setOption(Memcached::OPT_PREFIX_KEY, $mcD_pref);
+    
+    $shop = new Shop(true, $memcacheD);
     
 $bot->cmd('/start', function() {
-    global $memcacheD;
+    global $memcacheD, $shop;
     $m = Bot::message();
-    $shop = new Shop($m['message']['from']['id'], true, $memcacheD);
-    
+    $shop->SetUserID($m['message']['from']['id']);
     if (!$shop->hasUser()) {
         $shop->CreateUser(
             $m['message']['from']['id'],
@@ -41,18 +43,23 @@ $bot->cmd('/start', function() {
     }
     
     $products = $shop->GetCart();
-    foreach ($products as $product) {
+    if (sizeof($products) > 0) {
+        foreach ($products as $product) {
+            TemplatingProduct($product);
+        }
+    } else {
         
     }
 });
 
 function TemplatingProduct($product) {
+    global $shop;
     $options = [];
     
     $cart_button = round($product['oneoff'], 3) . ' ' . $product['units'];
     $description_button = ($product['url'] == '') ? ['text' => 'Описание', 'callback_data' => 'INFO_' . $product['id']] : ['text' => 'Описание', 'url' => $product['url']];
     
-    $options['chat_id'] = $product['chat_id'];
+    //$options['chat_id'] = $product['chat_id'];
     $options['disable_notification'] = true;
     $options['reply_markup'] = ['inline_keyboard' => []];
     $options['reply_markup']['inline_keyboard'][] = [
@@ -61,15 +68,13 @@ function TemplatingProduct($product) {
     ];
     
     if ($product['image'] == '') {
-        
-        $i_res = Bot::sendMessage('', $options);
-
+        $i_res = Bot::sendMessage(sprintf($shop->GetString(1), $product['title'], $product['count'], $product['units']), $options);
     } else {
         $options['reply_markup']['inline_keyboard'][] = [
             ['text' => json_decode('"\u2753"'), 'callback_data' => 'CART_' . $product['id']],
             $description_button
         ];
-        $options['caption'] = '';
+        $options['caption'] = sprintf($shop->GetString(1), $product['title'], $product['count'], $product['units']);
         $i_res = Bot::sendPhoto($product['image'], $options);
     }
 }

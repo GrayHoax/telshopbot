@@ -33,8 +33,7 @@ class Shop {
         $this->Logging('Class Cunstructor');
     }
     
-    function Shop($user_id, $useMemcached = false, $MemcachedLink = null) {
-        $this->user_id = $user_id;
+    function Shop($useMemcached = false, $MemcachedLink = null) {
         $this->Logging('Defined UserID: ' . $user_id);
         
         if ($this->useMemcached) {
@@ -42,6 +41,11 @@ class Shop {
             $this->useMemcached = $useMemcached;
             $this->Memcached_link = $MemcachedLink;
         }        
+    }
+    
+    function SetUserID($user_id) {
+        
+        $this->user_id = $user_id;
     }
     
     /*
@@ -119,14 +123,6 @@ class Shop {
     
     function GetString($string_id = '') {
         $return = $this->GetData('STRING', $string_id);
-        if ($string_id != '') {
-            foreach($return as $value) {
-                if ($value['id'] == $string_id) {
-                    $return = $value;
-                    break;
-                }
-            }
-        }
         return $return;
     }
     
@@ -260,7 +256,9 @@ class Shop {
             case "STRING":
                 if (!$this->useMemcached or false == ($return = $this->Memcached_link->get($item))) {
                     $this->Logging('Loading STRINGS data from [!] DATABASE');
-                    $return = $this->db->select('bot_strings', '*');
+                    $where = [];
+                    if ($parameter != '') $where = ['id' => $parameter];
+                    $return = $this->db->select('bot_strings', '*', $where);
                     $this->LoadData2Memcached($item, $parameter, $return);
                 }
                 break;

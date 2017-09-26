@@ -6,14 +6,15 @@ $BOT_LOGIN = "bazovskaya_shop_bot";
 
 	$mcD_host = "127.0.0.1";
 	$mcD_port = "11211";
+        $mcD_pref = "shop_";
 	
 	define('BOTLOG', __DIR__ . '/botlog.actions');
 	define('DEEPLOG', false);
 	
 	$db_host = "localhost";
-	$db_user = "clerk_bot";
+	$db_user = "telegram_shop";
 	$db_pass = "npUznvVQgZ0UJ10I";
-	$db_base = "clerk_bot";
+	$db_base = "telegram_shop";
 	
 	define("MODERCHAT", -1001143921640);
 
